@@ -1,7 +1,6 @@
 -- Intrucoes de uso do arquivo.
 -- Valor '1' = area branca da imagem ( nao pintado )
 -- Valor '-1' = area preta da imagem ( pintada )
--- Nao utilizar '-1' pois ao popular a matrix os valores serao trocados
 -- Separar cada elemento por uma linha em branco
 -- Os valores na matrix devem ser separados por ','
 -- Linha que iniciam com '--' sao comentarios ignorados no processamento
@@ -212,13 +211,13 @@
 1,-1,1,-1,1
 -1,1,1,1,-1
 -1,1,1,1,-1
-																
+
 -- Z
 -1,-1,-1,-1,-1
 1,1,1,1,-1
 1,1,1,-1,1
 1,1,-1,1,1
-1,-1,1,1,1												
+1,-1,1,1,1
 -1,1,1,1,1
 -1,-1,-1,-1,-1
 

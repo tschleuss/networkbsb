@@ -11,7 +11,7 @@ public class TreinBSB {
 		super();
 	}
 	
-	public Matrix treinBSB(List<Matrix> knowledgeList, float learnTaxe, float stopCriter)
+	public Matrix treinBSB(List<Matrix> knowledgeList, double learnTaxe, double stopCriter)
 	{
 		Matrix wObj = null;
 		
@@ -21,7 +21,7 @@ public class TreinBSB {
 			final int n = knowledgeList.get(0).getRows();
 
 			//Matriz com pesos iguais a zero
-			float wZero[][] = new float[n][n];
+			double wZero[][] = new double[n][n];
 			wObj = new Matrix(wZero).zeroMatrix();
 			
 			//Matriz de correcao dos pesos
@@ -36,7 +36,7 @@ public class TreinBSB {
 				if( !finish ) 
 				{
 					//Laco de repeticao das epocas de treinamento
-					for( int i = 1; i <= 50; i++ )
+					for( int i = 1; i <= 100; i++ )
 					{
 						//Laco de repeticao sobre todos os padroes
 						for( Matrix matrix : knowledgeList )
@@ -56,13 +56,13 @@ public class TreinBSB {
 								//Ajusta os pesos
 								wObj = wObj.add( wDelta );
 							}
-							
-							//Se atingiu o criterio de parada
-							if( wDelta.abs().max() < stopCriter ) {
-								finish = !finish;
-								break trein;
-							}	
 						}
+						
+						//Se atingiu o criterio de parada
+						if( wDelta.abs().max() < stopCriter ) {
+							finish = !finish;
+							break trein;
+						}	
 					}	
 				}	
 			}

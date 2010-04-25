@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.furb.bsb.model.Matrix;
 import org.furb.bsb.resource.KnowledgeLoader;
+import org.furb.bsb.utils.Setup;
 
 /**
  * Controller da rede BSB
@@ -12,7 +13,7 @@ import org.furb.bsb.resource.KnowledgeLoader;
 public class BSBController {
 
 	//Matriz com os dados fornecidos pelo usuarios
-	private float[][] userMatrix = new float[7][5];
+	private double[][] userMatrix = new double[Setup.ROW_SIZE][Setup.COL_SIZE];
 	
 	//Matriz de treinamento
 	private List<Matrix> knowledgeList = null;
@@ -48,7 +49,7 @@ public class BSBController {
 	public void treinBSB(float learnTaxe, float stopCriter)
 	{
 		//Treina os padroes
-		treinedMatrix = new TreinBSB().treinBSB(knowledgeList, 0.1f, 0.0001f);
+		treinedMatrix = new TreinBSB().treinBSB(knowledgeList, Setup.LEARN_RATE, Setup.STOP_CRITERIA);
 	}
 	
 	/**
@@ -70,20 +71,20 @@ public class BSBController {
 	 */
 	private void initMatrix() 
 	{
-        for( int i = 0; i < 5; i++ )
+        for( int i = 0; i < Setup.COL_SIZE; i++ )
         {
-        	for( int j = 0; j < 7; j++ )
+        	for( int j = 0; j < Setup.ROW_SIZE; j++ )
         	{
         		userMatrix[j][i] = 1;
         	}
         }
 	}
 
-	public float[][] getUserMatrix() {
+	public double[][] getUserMatrix() {
 		return userMatrix;
 	}
 
-	public void setUserMatrix(float[][] userMatrix) {
+	public void setUserMatrix(double[][] userMatrix) {
 		this.userMatrix = userMatrix;
 	}
 
