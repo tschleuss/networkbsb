@@ -212,7 +212,7 @@ public class BSBView extends javax.swing.JFrame {
 			public void actionPerformed(ActionEvent e) 
 			{
 				controller.operBSB();
-				Matrix resultMatrix = controller.getResultMatrix().convertInRowColumnMatrix(Setup.ROW_SIZE, Setup.COL_SIZE);
+				Matrix resultMatrix = controller.getResultMatrix().convertInMatrix(Setup.ROW_SIZE, Setup.COL_SIZE);
 				
 		        for( int i = 0; i < Setup.COL_SIZE; i++ )
 		        {
@@ -221,7 +221,7 @@ public class BSBView extends javax.swing.JFrame {
 		        		final int row = j;
 		        		final int col = i;
 		        		JButton button = matrizSaida[row][col];
-		        		double value = resultMatrix.getElementAt(row, col);
+		        		double value = resultMatrix.getAt(row, col);
 		        		
 						if( value == -1 ) {
 							button.setIcon(new ImageIcon(getClass().getResource("/org/furb/bsb/resource/icons/black.png")));

@@ -77,7 +77,7 @@ public class KnowledgeLoader {
 						{
 							if( tokenizer != null )
 							{
-								retList.add( new Matrix( this.convertMatrix(matrix) ) );
+								retList.add( new Matrix(matrix).convertInColumn() );
 								matrix = new double[Setup.ROW_SIZE][Setup.COL_SIZE];
 								rows = 0;
 								cols = 0;
@@ -87,7 +87,7 @@ public class KnowledgeLoader {
 				}
 			}
 			
-			retList.add( new Matrix( this.convertMatrix( matrix ) ) );
+			retList.add( new Matrix(matrix).convertInColumn() );
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -142,7 +142,7 @@ public class KnowledgeLoader {
 						{
 							if( tokenizer != null )
 							{
-								retMatrix = new Matrix( this.convertMatrix(matrix) );
+								retMatrix = new Matrix(matrix).convertInColumn();
 								matrix = new double[Setup.ROW_SIZE][Setup.COL_SIZE];
 								rows = 0;
 								cols = 0;
@@ -152,36 +152,12 @@ public class KnowledgeLoader {
 				}
 			}
 			
-			retMatrix = new Matrix( this.convertMatrix(matrix) );
+			retMatrix = new Matrix(matrix).convertInColumn();
 			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		
 		return retMatrix;
-	}
-	
-	/**
-	 * Converte a matrix de NxM para uma matrix
-	 * de 1 coluna s—.
-	 * @param matrix
-	 * @return
-	 */
-	private double[][] convertMatrix(double[][] matrix)
-	{
-		final int rowSize = matrix.length * matrix[0].length;
-		double[][] newMatrix = new double[rowSize][1];
-		int row = 0;
-		
-		for( int i = 0; i < matrix[0].length; i++ )
-		{
-			for( int j = 0; j < matrix.length; j++ )
-			{
-				newMatrix[row][0] = matrix[j][i];
-				row++;
-			}
-		}
-		
-		return newMatrix;
 	}
 }
