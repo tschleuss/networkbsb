@@ -3,8 +3,6 @@ package org.furb.bsb.model;
 import org.furb.bsb.utils.MatrixException;
 import org.furb.bsb.utils.MatrixOperartions;
 
-
-
 /**
  * Classe utilizada para manipulacao de matrizes
  * 
@@ -31,11 +29,17 @@ public class Matrix {
 	 * @return
 	 * @throws MatrixException 
 	 */
-	public Matrix add(Matrix matrix) throws MatrixException {
-
+	public Matrix add(Matrix matrix) throws MatrixException 
+	{
 		if (matrix.getRows() != this.getRows() || matrix.getColumns() != this.getColumns()) 
 		{
-			throw new MatrixException(MatrixOperartions.ADD, matrix.getRows(), matrix.getColumns(), this.getRows(), this.getColumns());
+			throw new MatrixException(
+				MatrixOperartions.ADD, 
+				matrix.getRows(), 
+				matrix.getColumns(), 
+				this.getRows(), 
+				this.getColumns()
+			);
 		}
 
 		return new Matrix(this.addElements(matrix));
@@ -48,11 +52,17 @@ public class Matrix {
 	 * @return
 	 * @throws MatrixException
 	 */
-	public Matrix subtract(Matrix matrix) throws MatrixException {
-
+	public Matrix subtract(Matrix matrix) throws MatrixException 
+	{
 		if (matrix.getRows() != this.getRows() || matrix.getColumns() != this.getColumns()) 
 		{
-			throw new MatrixException(MatrixOperartions.SUBTRACT, matrix.getRows(), matrix.getColumns(), this.getRows(), this.getColumns());
+			throw new MatrixException(
+				MatrixOperartions.SUBTRACT,
+				matrix.getRows(), 
+				matrix.getColumns(), 
+				this.getRows(), 
+				this.getColumns()
+			);
 		}
 
 		return new Matrix(this.subtractElements(matrix));
@@ -65,11 +75,17 @@ public class Matrix {
 	 * @return
 	 * @throws MatrixException 
 	 */
-	public Matrix product(Matrix matrix) throws MatrixException {
-
+	public Matrix product(Matrix matrix) throws MatrixException
+	{
 		if (matrix.getRows() != this.getColumns()) 
 		{
-			throw new MatrixException(MatrixOperartions.PRODUCT, this.getRows(), this.getColumns(), matrix.getRows(), matrix.getColumns());
+			throw new MatrixException(
+				MatrixOperartions.PRODUCT, 
+				this.getRows(), 
+				this.getColumns(), 
+				matrix.getRows(), 
+				matrix.getColumns()
+			);
 		}
 
 		return new Matrix(this.productElements(matrix));
@@ -171,7 +187,8 @@ public class Matrix {
 	 * 
 	 * @return
 	 */
-	public boolean isSquare() {
+	public boolean isSquare() 
+	{
 		return this.getRows() == this.getColumns();
 	}
 
@@ -182,7 +199,8 @@ public class Matrix {
 	 * @param value
 	 * @return
 	 */
-	public Matrix product(double value) {
+	public Matrix product(double value) 
+	{
 		return new Matrix(this.productComponents(value));
 	}
 
@@ -193,11 +211,12 @@ public class Matrix {
 	 * @return
 	 * @throws MatrixException 
 	 */
-	public double[] product(double[] vetor) throws MatrixException {
-
+	public double[] product(double[] vetor) throws MatrixException 
+	{
 		final int m = this.getColumns();
 
-		if (vetor.length != m) {
+		if (vetor.length != m) 
+		{
 			throw new MatrixException(MatrixOperartions.PRODUCT_VECTOR, m, vetor.length);
 		}
 
@@ -215,9 +234,12 @@ public class Matrix {
 		final int m = this.getColumns();
 		double maxElement = this.getElementAt(0, 0);
 		
-		for (int i = 0; i < n; i++) {
-			for (int j = 0; j < m; j++) {
+		for (int i = 0; i < n; i++) 
+		{
+			for (int j = 0; j < m; j++) 
+			{
 				final double atual = this.getElementAt(i, j);
+				
 				if( atual > maxElement ) {
 					maxElement = atual;
 				}
@@ -238,9 +260,12 @@ public class Matrix {
 		final int m = this.getColumns();
 		double[][] newComponents = new double[n][m];
 		
-		for (int i = 0; i < n; i++) {
-			for (int j = 0; j < m; j++) {
+		for (int i = 0; i < n; i++) 
+		{
+			for (int j = 0; j < m; j++) 
+			{
 				final double atual = this.getElementAt(i, j);
+				
 				if( value > atual ) {
 					newComponents[i][j] = value;
 				} else {
@@ -263,9 +288,12 @@ public class Matrix {
 		final int m = this.getColumns();
 		double[][] newComponents = new double[n][m];
 		
-		for (int i = 0; i < n; i++) {
-			for (int j = 0; j < m; j++) {
+		for (int i = 0; i < n; i++) 
+		{
+			for (int j = 0; j < m; j++) 
+			{
 				final double atual = this.getElementAt(i, j);
+				
 				if( value < atual ) {
 					newComponents[i][j] = value;
 				} else {
@@ -289,8 +317,10 @@ public class Matrix {
 		final int m = this.getColumns();
 		double[][] newComponents = new double[n][m];
 		
-		for (int i = 0; i < n; i++) {
-			for (int j = 0; j < m; j++) {
+		for (int i = 0; i < n; i++) 
+		{
+			for (int j = 0; j < m; j++) 
+			{
 				newComponents[i][j] = Math.abs( this.getElementAt(i, j) );
 			}
 		}
@@ -310,7 +340,8 @@ public class Matrix {
 		final int m = this.getColumns();
 		double[][] newComponents = new double[n][m];
 		
-		for (int i = 0; i < n; i++) {
+		for (int i = 0; i < n; i++) 
+		{
 			newComponents[i][i] = 1.0f;
 		}
 		
@@ -323,14 +354,16 @@ public class Matrix {
 	 * @param matrix
 	 * @return
 	 */
-	private double[][] addElements(Matrix matrix) {
-
+	private double[][] addElements(Matrix matrix) 
+	{
 		final int n = this.getRows();
 		final int m = this.getColumns();
 		double[][] newElements = new double[n][m];
 
-		for (int i = 0; i < n; i++) {
-			for (int j = 0; j < n; j++) {
+		for (int i = 0; i < n; i++)
+		{
+			for (int j = 0; j < n; j++) 
+			{
 				newElements[i][j] = this.getElementAt(i, j) + matrix.getElementAt(i, j);
 			}
 		}
@@ -344,14 +377,16 @@ public class Matrix {
 	 * @param matrix
 	 * @return
 	 */
-	private double[][] subtractElements(Matrix matrix) {
-
+	private double[][] subtractElements(Matrix matrix) 
+	{
 		final int n = this.getRows();
 		final int m = this.getColumns();
 		double[][] newElements = new double[n][m];
 
-		for (int i = 0; i < n; i++) {
-			for (int j = 0; j < m; j++) {
+		for (int i = 0; i < n; i++) 
+		{
+			for (int j = 0; j < m; j++) 
+			{
 				newElements[i][j] = this.getElementAt(i, j) - matrix.getElementAt(i, j);
 			}
 		}
@@ -365,17 +400,20 @@ public class Matrix {
 	 * @param matrix
 	 * @return
 	 */
-	private double[][] productElements(Matrix matrix) {
-
+	private double[][] productElements(Matrix matrix)
+	{
 		final int n = this.getRows();
 		final int m = this.getColumns();
 		final int p = matrix.getColumns();
 		
 		double[][] newElements = new double[n][p];
 
-		for (int i = 0; i < n; i++) {
-			for (int j = 0; j < p; j++) {
-				for (int k = 0; k < m; k++) {
+		for (int i = 0; i < n; i++) 
+		{
+			for (int j = 0; j < p; j++)
+			{
+				for (int k = 0; k < m; k++) 
+				{
 					newElements[i][j] += this.getElementAt(i, k) * matrix.getElementAt(k, j);
 				}
 			}
@@ -390,14 +428,16 @@ public class Matrix {
 	 * @param value
 	 * @return
 	 */
-	private double[][] productComponents(double value) {
-
+	private double[][] productComponents(double value) 
+	{
 		final int n = this.getRows();
 		final int m = this.getColumns();
 		double[][] newComponents = new double[n][m];
 
-		for (int i = 0; i < n; i++) {
-			for (int j = 0; j < m; j++) {
+		for (int i = 0; i < n; i++) 
+		{
+			for (int j = 0; j < m; j++) 
+			{
 				newComponents[i][j] = value * this.getElementAt(i, j);
 			}
 		}
@@ -417,9 +457,12 @@ public class Matrix {
 		final int m = this.getColumns();
 		double[] vectorComponents = new double[n];
 
-		for (int i = 0; i < n; i++) {
+		for (int i = 0; i < n; i++) 
+		{
 			vectorComponents[i] = 0;
-			for (int j = 0; j < m; j++) {
+			
+			for (int j = 0; j < m; j++)
+			{
 				vectorComponents[i] += this.getElementAt(i, j) * v[j];
 			}
 		}
@@ -439,9 +482,12 @@ public class Matrix {
 		final int m = this.getColumns();
 		double[][] vectorComponents = new double[n][1];
 		
-		for (int i = 0; i < n; i++) {
-			for (int j = 0; j < m; j++) {
+		for (int i = 0; i < n; i++) 
+		{
+			for (int j = 0; j < m; j++) 
+			{
 				final double value = this.getElementAt(i, j);
+				
 				if( j == column ) {
 					vectorComponents[i][0] = value;
 				}
@@ -491,7 +537,7 @@ public class Matrix {
 			
 			if( row < newElement.length-1 ) {
 				row++;
-			} else{
+			} else {
 				row = 0;
 				col++;
 			}
@@ -505,7 +551,8 @@ public class Matrix {
 	 * 
 	 * @return
 	 */
-	public int getRows() {
+	public int getRows() 
+	{
 		return elements.length;
 	}
 
@@ -514,7 +561,8 @@ public class Matrix {
 	 * 
 	 * @return
 	 */
-	public int getColumns() {
+	public int getColumns() 
+	{
 		return elements[0].length;
 	}
 
@@ -525,7 +573,8 @@ public class Matrix {
 	 * @param j
 	 * @return
 	 */
-	public double getElementAt(int i, int j) {
+	public double getElementAt(int i, int j) 
+	{
 		return elements[i][j];
 	}
 
@@ -534,7 +583,8 @@ public class Matrix {
 	 * 
 	 * @return
 	 */
-	public double[][] getElements() {
+	public double[][] getElements() 
+	{
 		return elements;
 	}
 
@@ -543,7 +593,8 @@ public class Matrix {
 	 * 
 	 * @param elements
 	 */
-	public void setElements(double[][] elements) {
+	public void setElements(double[][] elements) 
+	{
 		this.elements = elements;
 	}
 	
@@ -551,6 +602,7 @@ public class Matrix {
 	public String toString() 
 	{
 		StringBuilder retValue = new StringBuilder();
+		
 		for( int j = 0; j < this.getRows(); j++ ) 
 		{
 			for( int i = 0; i < this.getColumns(); i++ ) 
@@ -569,8 +621,10 @@ public class Matrix {
 					retValue.append(",");
 				}
 			}
+			
 			retValue.append("\n");
 		}
+		
 		return retValue.toString();
 	}
 }
