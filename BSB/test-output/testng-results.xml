@@ -1,0 +1,10 @@
+<testng-results>
+  <reporter-output>
+  </reporter-output>
+  <suite name="BSB">
+    <groups>
+    </groups>
+    <test name="org.furb.bsb.Main">
+    </test>
+  </suite>
+</testng-results>
