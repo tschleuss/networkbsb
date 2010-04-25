@@ -14,6 +14,8 @@ public class Main {
 	{
 		try 
 		{
+			//classe teste.. original e BSBView.java
+			/**
 			//Classe que carrega a base de conhecimendo
 			KnowledgeLoader kl = new KnowledgeLoader();
 			
@@ -30,6 +32,7 @@ public class Main {
 			Matrix result = new OperBSB().operBSB(wObj, kl.loadRandomPattern() );
 			System.out.println("RESULTADO: ");
 			System.out.println( result.toString() );
+			**/
 			
 		} catch (Exception m) {
 			m.printStackTrace();
