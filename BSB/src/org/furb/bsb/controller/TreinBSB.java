@@ -41,25 +41,21 @@ public class TreinBSB {
 						//Laco de repeticao sobre todos os padroes
 						for( Matrix matrix : knowledgeList )
 						{
-							final int columns = matrix.getColumns();
+							xObj = matrix.getColumn( 0 );
+							
+							//Calcula vetor de ativacoes
+							sObj = wObj.product( xObj );
 
-							for( int col = 0; col < columns; col++ )
-							{
-								xObj = matrix.getColumnMatrix( col );
-								
-								//Calcula vetor de ativacoes
-								sObj = wObj.product( xObj );
-
-								//Calcula a matriz de correcao dos pesos
-								wDelta = xObj.subtract( sObj ).product( learnTaxe ).product( xObj.transpose() );
-								
-								//Ajusta os pesos
-								wObj = wObj.add( wDelta );
-							}
+							//Calcula a matriz de correcao dos pesos
+							wDelta = xObj.subtract( sObj ).product( learnTaxe ).product( xObj.transpose() );
+							
+							//Ajusta os pesos
+							wObj = wObj.add( wDelta );
 						}
 						
 						//Se atingiu o criterio de parada
 						if( wDelta.abs().max() < stopCriter ) {
+							System.out.println("stopcriter");
 							finish = !finish;
 							break trein;
 						}	

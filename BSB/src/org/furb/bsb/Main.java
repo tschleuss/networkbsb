@@ -14,14 +14,15 @@ public class Main {
 	{
 		try 
 		{
+			
 			//classe teste.. original e BSBView.java
-			/**
+
 			//Classe que carrega a base de conhecimendo
 			KnowledgeLoader kl = new KnowledgeLoader();
 			
 			//Matriz com as letras
 			List<Matrix> knowledgeList = kl.load();
-			System.out.println(	knowledgeList.size() + "PADROES A SEREM TREINADOS");
+			System.out.println(	knowledgeList.size() + " PADROES A SEREM TREINADOS");
 			
 			//Treina os padroes
 			Matrix wObj = new TreinBSB().treinBSB(knowledgeList, 0.1f, 0.0001f);
@@ -31,8 +32,7 @@ public class Main {
 			//Realiza a operacao sobre a base treinada e o padrao definido
 			Matrix result = new OperBSB().operBSB(wObj, kl.loadRandomPattern() );
 			System.out.println("RESULTADO: ");
-			System.out.println( result.toString() );
-			**/
+			System.out.println( result.toMatrixString() );
 			
 		} catch (Exception m) {
 			m.printStackTrace();

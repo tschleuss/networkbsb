@@ -37,7 +37,7 @@ public class BSBController {
 	public void operBSB()
 	{
 		//Realiza a operacao sobre a base treinada e o padrao definido
-		resultMatrix = new OperBSB().operBSB(treinedMatrix, new Matrix(userMatrix).convertInColumnMatrix() );
+		resultMatrix = new OperBSB().operBSB(treinedMatrix, new Matrix(userMatrix).convertInColumn() );
 	}
 	
 	/**
