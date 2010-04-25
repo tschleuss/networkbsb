@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.StringTokenizer;
 
 import org.furb.bsb.model.Matrix;
+import org.furb.bsb.utils.Setup;
 
 /**
  * Classe responsavel por ler e popular
@@ -20,7 +21,7 @@ import org.furb.bsb.model.Matrix;
  * @since 20/04/2010
  */
 public class KnowledgeLoader {
-
+	
 	public KnowledgeLoader() {
 		super();
 	}
@@ -42,7 +43,7 @@ public class KnowledgeLoader {
 			StringTokenizer tokenizer = null;
 			
 			retList = new ArrayList<Matrix>();
-			float[][] matrix = new float[7][5];
+			double[][] matrix = new double[Setup.ROW_SIZE][Setup.COL_SIZE];
 			String line = null;
 			String content = null;
 			int rows = 0;
@@ -68,7 +69,7 @@ public class KnowledgeLoader {
 					}
 					else
 					{
-						if( rows != 7 && cols != 5 && tokenizer != null ) 
+						if( rows != Setup.ROW_SIZE && cols != Setup.COL_SIZE && tokenizer != null ) 
 						{
 							throw new Exception("Inconsistência no arquivo !");
 						}
@@ -77,7 +78,7 @@ public class KnowledgeLoader {
 							if( tokenizer != null )
 							{
 								retList.add( new Matrix( this.convertMatrix(matrix) ) );
-								matrix = new float[7][5];
+								matrix = new double[Setup.ROW_SIZE][Setup.COL_SIZE];
 								rows = 0;
 								cols = 0;
 							}
@@ -107,7 +108,7 @@ public class KnowledgeLoader {
 			BufferedReader br = new BufferedReader(reader);
 			StringTokenizer tokenizer = null;
 			
-			float[][] matrix = new float[7][5];
+			double[][] matrix = new double[Setup.ROW_SIZE][Setup.COL_SIZE];
 			String line = null;
 			String content = null;
 			int rows = 0;
@@ -133,7 +134,7 @@ public class KnowledgeLoader {
 					}
 					else
 					{
-						if( rows != 7 && cols != 5 && tokenizer != null ) 
+						if( rows != Setup.ROW_SIZE && cols != Setup.COL_SIZE && tokenizer != null ) 
 						{
 							throw new Exception("Inconsistência no arquivo !");
 						}
@@ -142,7 +143,7 @@ public class KnowledgeLoader {
 							if( tokenizer != null )
 							{
 								retMatrix = new Matrix( this.convertMatrix(matrix) );
-								matrix = new float[7][5];
+								matrix = new double[Setup.ROW_SIZE][Setup.COL_SIZE];
 								rows = 0;
 								cols = 0;
 							}
@@ -166,9 +167,10 @@ public class KnowledgeLoader {
 	 * @param matrix
 	 * @return
 	 */
-	private float[][] convertMatrix(float[][] matrix)
+	private double[][] convertMatrix(double[][] matrix)
 	{
-		float[][] newMatrix = new float[matrix.length * matrix[0].length][1];
+		final int rowSize = matrix.length * matrix[0].length;
+		double[][] newMatrix = new double[rowSize][1];
 		int row = 0;
 		
 		for( int i = 0; i < matrix[0].length; i++ )

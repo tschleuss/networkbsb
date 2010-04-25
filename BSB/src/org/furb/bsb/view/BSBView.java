@@ -25,6 +25,7 @@ import javax.swing.WindowConstants;
 
 import org.furb.bsb.controller.BSBController;
 import org.furb.bsb.model.Matrix;
+import org.furb.bsb.utils.Setup;
 
 /**
  * Classe que representa a tela de interacao com o usuario
@@ -36,7 +37,7 @@ public class BSBView extends javax.swing.JFrame {
 	private static final long serialVersionUID = 2900640123739586996L;
 	
 	//Armazena os paineis que renderizam a saida
-	private JButton[][] matrizSaida = new JButton[7][5];
+	private JButton[][] matrizSaida = new JButton[Setup.ROW_SIZE][Setup.COL_SIZE];
 	
 	//Paineis
 	private JPanel		panelMatrizes;
@@ -211,14 +212,14 @@ public class BSBView extends javax.swing.JFrame {
 				controller.operBSB();
 				Matrix resultMatrix = controller.getResultMatrix().convertInRowColumnMatrix(7,5);
 				
-		        for( int i = 0; i < 5; i++ )
+		        for( int i = 0; i < Setup.COL_SIZE; i++ )
 		        {
-		        	for( int j = 0; j < 7; j++ )
+		        	for( int j = 0; j < Setup.ROW_SIZE; j++ )
 		        	{
 		        		final int row = j;
 		        		final int col = i;
 		        		JButton button = matrizSaida[row][col];
-		        		float value = resultMatrix.getElementAt(row, col);
+		        		double value = resultMatrix.getElementAt(row, col);
 		        		
 						if( value == -1 ) {
 							button.setIcon(new ImageIcon(getClass().getResource("/org/furb/bsb/resource/icons/black.png")));
@@ -288,9 +289,9 @@ public class BSBView extends javax.swing.JFrame {
     	JButton squareButton = null;
     	
         //Criar os blocos da matriz de saida
-        for( int i = 0; i < 5; i++ )
+        for( int i = 0; i < Setup.COL_SIZE; i++ )
         {
-        	for( int j = 0; j < 7; j++ )
+        	for( int j = 0; j < Setup.ROW_SIZE; j++ )
         	{
         		final int row = j;
         		final int col = i;
@@ -321,7 +322,7 @@ public class BSBView extends javax.swing.JFrame {
 	                {
 						public void actionPerformed(ActionEvent e) 
 						{
-							float value = controller.getUserMatrix()[row][col];
+							double value = controller.getUserMatrix()[row][col];
 							JButton button = (JButton)e.getSource();
 							
 							if( value == -1 ) {
