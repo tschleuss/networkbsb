@@ -153,6 +153,7 @@ public class BSBView extends javax.swing.JFrame {
         btTreinar.setText("Treinar");
 
         btOperar.setText("Operar");
+        btOperar.setEnabled(false);
 
         menuArquivo.setText("Arquivo");
 
@@ -202,6 +203,7 @@ public class BSBView extends javax.swing.JFrame {
 				final float learnTaxe = Float.valueOf( String.valueOf( inputTaxaAprendizagem.getText().replace(",", ".") ) );
 				final float stopCriter = Float.valueOf( String.valueOf( inputCriterioParada.getText().replace(",", ".") ) );
 				controller.treinBSB(learnTaxe, stopCriter);
+				btOperar.setEnabled(true);
 			}
         });
         
@@ -210,7 +212,7 @@ public class BSBView extends javax.swing.JFrame {
 			public void actionPerformed(ActionEvent e) 
 			{
 				controller.operBSB();
-				Matrix resultMatrix = controller.getResultMatrix().convertInRowColumnMatrix(7,5);
+				Matrix resultMatrix = controller.getResultMatrix().convertInRowColumnMatrix(Setup.ROW_SIZE, Setup.COL_SIZE);
 				
 		        for( int i = 0; i < Setup.COL_SIZE; i++ )
 		        {
