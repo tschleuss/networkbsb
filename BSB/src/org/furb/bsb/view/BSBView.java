@@ -120,6 +120,7 @@ public class BSBView extends javax.swing.JFrame {
         super.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         super.setTitle("[Redes Neurais] - BSB");
         super.setResizable(false);
+    	this.setIconImage(new ImageIcon(getClass().getResource("/org/furb/bsb/resource/icons/brain.png")).getImage());
 
         panelMatrizes.setLayout(new GridBagLayout());
         
