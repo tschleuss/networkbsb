@@ -1,8 +1,0 @@
-<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="BSB">
-  <test verbose="2" name="org.furb.bsb.Main" annotations="javadoc">
-    <classes>
-      <class name="org.furb.bsb.Main"/>
-    </classes>
-  </test>
-</suite>
