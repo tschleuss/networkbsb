@@ -6,8 +6,9 @@ import org.furb.bsb.utils.Setup;
 
 /**
  * Classe utilizada para manipulacao de matrizes
- * 
  * @author Thyago Schleuss
+ * @author Luiz Diego Aquino
+ * @author Luiz Roberto Leicht
  * @since 07/04/2010
  */
 public class Matrix {
@@ -631,6 +632,10 @@ public class Matrix {
 		return retValue.toString();
 	}
 	
+	/**
+	 * Imprime a matrix coluna em forma de matrix 7x5
+	 * @return
+	 */
 	public String toMatrixString() 
 	{
 		StringBuilder retValue = new StringBuilder();

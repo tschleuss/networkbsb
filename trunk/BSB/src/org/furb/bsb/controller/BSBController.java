@@ -7,8 +7,11 @@ import org.furb.bsb.resource.KnowledgeLoader;
 import org.furb.bsb.utils.Setup;
 
 /**
- * Controller da rede BSB
+ * Controler que opera entre a camada de visao
+ * e as operacoes de operacao e treinamento
  * @author Thyago Schleuss
+ * @author Luiz Diego Aquino
+ * @author Luiz Roberto Leicht
  */
 public class BSBController {
 
@@ -46,10 +49,10 @@ public class BSBController {
 	 * @param learnTaxe
 	 * @param stopCriter
 	 */
-	public void treinBSB(float learnTaxe, float stopCriter)
+	public void treinBSB(double learnTaxe, double stopCriter)
 	{
 		//Treina os padroes
-		treinedMatrix = new TreinBSB().treinBSB(knowledgeList, Setup.LEARN_RATE, Setup.STOP_CRITERIA);
+		treinedMatrix = new TreinBSB().treinBSB(knowledgeList, learnTaxe, stopCriter);
 	}
 	
 	/**

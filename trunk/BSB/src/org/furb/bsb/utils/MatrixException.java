@@ -6,6 +6,8 @@ import java.text.MessageFormat;
  * Classe utilizada como exception dos erros que 
  * podem ocorrer nas operacoes sobre a matriz.
  * @author Thyago Schleuss
+ * @author Luiz Diego Aquino
+ * @author Luiz Roberto Leicht
  * @since 07/04/2010
  */
 public class MatrixException extends Exception {

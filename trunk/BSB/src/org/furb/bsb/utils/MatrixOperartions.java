@@ -4,6 +4,8 @@ package org.furb.bsb.utils;
  * Armazena o pattern de erro para as operacoes
  * sobre a matriz
  * @author Thyago Schleuss
+ * @author Luiz Diego Aquino
+ * @author Luiz Roberto Leicht
  * @since 07/04/2010
  */
 public enum MatrixOperartions {
