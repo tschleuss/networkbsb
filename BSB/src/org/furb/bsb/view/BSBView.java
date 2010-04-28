@@ -2,7 +2,6 @@ package org.furb.bsb.view;
 
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -15,12 +14,11 @@ import javax.swing.GroupLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle;
+import javax.swing.SwingUtilities;
 import javax.swing.WindowConstants;
 
 import org.furb.bsb.controller.BSBController;
@@ -29,7 +27,12 @@ import org.furb.bsb.utils.Setup;
 
 /**
  * Classe que representa a tela de interacao com o usuario
+ * onde e construido todos os componentes visuais
+ * e feito a ligacao dos dos eventos com as acoes dos
+ * controladores.
  * @author Thyago Schleuss
+ * @author Luiz Diego Aquino
+ * @author Luiz Roberto Leicht
  * @since 23/04/2010
  */
 public class BSBView extends javax.swing.JFrame {
@@ -54,27 +57,6 @@ public class BSBView extends javax.swing.JFrame {
     private JLabel		lbMatrizSaida;
     private JLabel		lbTaxaAprendizagem;
     
-    //Toolbar
-    private JMenuBar	menuBar;
-    
-    //Menu 'Arquivo' e sub-itens
-    private JMenu		menuArquivo;
-    private JMenuItem	miCarregarMatrizEntrada;
-    private JMenuItem	miCarregarMatrizPesos;
-    private JMenuItem	miFechar;
-    private JMenuItem	miNovaRede;
-    private JMenuItem	miSalvarMatrizPesos;
-    
-    //Menu 'Exibir' e sub-itens
-    private JMenu		menuExibir;
-    private JMenuItem	miExibirMatrizEntrada;
-    private JMenuItem	miExibirMatrizPesos;
-
-    //Menu Sobre' e sub-itens
-    private JMenu		menuSobre;
-    private JMenuItem	miSobreEquipe;
-    private JMenuItem	miSobrePrograma;
-    
     private BSBController controller = null;
     
     //Construtor padrao
@@ -85,7 +67,9 @@ public class BSBView extends javax.swing.JFrame {
         initComponents();
     }
 
-    //Inicializa os componentes graficos
+    /**
+     * Inicializa os componentes graficos
+     */
     private void initComponents()
     {
         panelMatrizes			= new JPanel();
@@ -100,22 +84,6 @@ public class BSBView extends javax.swing.JFrame {
         lbMatrizEntrada			= new JLabel();
         lbMatrizSaida			= new JLabel();
         lbTaxaAprendizagem		= new JLabel();
-       
-        menuBar					= new JMenuBar();
-        menuArquivo				= new JMenu();
-        miNovaRede				= new JMenuItem();
-        miSalvarMatrizPesos		= new JMenuItem();
-        miCarregarMatrizPesos	= new JMenuItem();
-        miCarregarMatrizEntrada = new JMenuItem();
-        miFechar				= new JMenuItem();
-        
-        menuExibir				= new JMenu();
-        miExibirMatrizEntrada	= new JMenuItem();
-        miExibirMatrizPesos		= new JMenuItem();
-        
-        menuSobre				= new JMenu();
-        miSobrePrograma			= new JMenuItem();
-        miSobreEquipe			= new JMenuItem();
 
         super.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         super.setTitle("[Redes Neurais] - BSB");
@@ -155,56 +123,20 @@ public class BSBView extends javax.swing.JFrame {
 
         btOperar.setText("Operar");
         btOperar.setEnabled(false);
-
-        menuArquivo.setText("Arquivo");
-
-        miNovaRede.setText("Nova rede");
-        menuArquivo.add(miNovaRede);
-
-        miSalvarMatrizPesos.setText("Salvar matriz de pesos");
-        menuArquivo.add(miSalvarMatrizPesos);
-
-        miCarregarMatrizPesos.setText("Carregar matriz de pesos");
-        menuArquivo.add(miCarregarMatrizPesos);
-
-        miCarregarMatrizEntrada.setText("Carregar matriz de entrada");
-        menuArquivo.add(miCarregarMatrizEntrada);
-
-        miFechar.setText("Fechar");
-        menuArquivo.add(miFechar);
-
-        menuBar.add(menuArquivo);
-
-        menuExibir.setText("Exibir");
-
-        miExibirMatrizEntrada.setText("Matriz de entrada");
-        menuExibir.add(miExibirMatrizEntrada);
-
-        miExibirMatrizPesos.setText("Matriz de pesos");
-        menuExibir.add(miExibirMatrizPesos);
-
-        menuBar.add(menuExibir);
-
-        menuSobre.setText("Sobre");
-
-        miSobrePrograma.setText("O Programa");
-        menuSobre.add(miSobrePrograma);
-
-        miSobreEquipe.setText("A Equipe");
-        menuSobre.add(miSobreEquipe);
-
-        menuBar.add(menuSobre);
-
-        super.setJMenuBar(menuBar);
         
         btTreinar.addActionListener(new ActionListener()
         {
 			public void actionPerformed(ActionEvent e) 
 			{
-				final float learnTaxe = Float.valueOf( String.valueOf( inputTaxaAprendizagem.getText().replace(",", ".") ) );
-				final float stopCriter = Float.valueOf( String.valueOf( inputCriterioParada.getText().replace(",", ".") ) );
-				controller.treinBSB(learnTaxe, stopCriter);
-				btOperar.setEnabled(true);
+				try {
+					
+					final double learnTaxe = Double.valueOf( String.valueOf( inputTaxaAprendizagem.getText().replace(",", ".") ) );
+					final double stopCriter = Double.valueOf( String.valueOf( inputCriterioParada.getText().replace(",", ".") ) );
+					controller.treinBSB(learnTaxe, stopCriter);
+					JOptionPane.showMessageDialog(null, "Treinamento concluido!");
+					btOperar.setEnabled(true);
+					
+				} catch (Exception ex) {}
 			}
         });
         
@@ -212,27 +144,31 @@ public class BSBView extends javax.swing.JFrame {
         {
 			public void actionPerformed(ActionEvent e) 
 			{
-				controller.operBSB();
-				Matrix resultMatrix = controller.getResultMatrix().convertInMatrix(Setup.ROW_SIZE, Setup.COL_SIZE);
-				
-		        for( int i = 0; i < Setup.COL_SIZE; i++ )
-		        {
-		        	for( int j = 0; j < Setup.ROW_SIZE; j++ )
-		        	{
-		        		final int row = j;
-		        		final int col = i;
-		        		JButton button = matrizSaida[row][col];
-		        		double value = resultMatrix.getAt(row, col);
-		        		
-						if( value == -1 ) {
-							button.setIcon(new ImageIcon(getClass().getResource("/org/furb/bsb/resource/icons/black.png")));
-						} else if ( value == 1 ) {
-							button.setIcon(new ImageIcon(getClass().getResource("/org/furb/bsb/resource/icons/white.png")));
-						} else {
-							button.setIcon(new ImageIcon(getClass().getResource("/org/furb/bsb/resource/icons/gray.png")));
-						}
-		        	}
-		        }
+				try {
+					
+					controller.operBSB();
+					Matrix resultMatrix = controller.getResultMatrix().convertInMatrix(Setup.ROW_SIZE, Setup.COL_SIZE);
+					
+			        for( int i = 0; i < Setup.COL_SIZE; i++ )
+			        {
+			        	for( int j = 0; j < Setup.ROW_SIZE; j++ )
+			        	{
+			        		final int row = j;
+			        		final int col = i;
+			        		JButton button = matrizSaida[row][col];
+			        		double value = resultMatrix.getAt(row, col);
+			        		
+							if( value == -1 ) {
+								button.setIcon(new ImageIcon(getClass().getResource("/org/furb/bsb/resource/icons/black.png")));
+							} else if ( value == 1 ) {
+								button.setIcon(new ImageIcon(getClass().getResource("/org/furb/bsb/resource/icons/white.png")));
+							} else {
+								button.setIcon(new ImageIcon(getClass().getResource("/org/furb/bsb/resource/icons/gray.png")));
+							}
+			        	}
+			        }
+					
+				} catch (Exception ex) {}
 			}
         });
 
@@ -363,13 +299,19 @@ public class BSBView extends javax.swing.JFrame {
         panelPai.add(matriz, gridBagConstraints);
     }
 
+    /**
+     * Inicializa a aplicacao
+     * @param args
+     */
     public static void main(String args[]) {
-        EventQueue.invokeLater(new Runnable() {
-            public void run() {
-            	BSBView bsbView = new BSBView();
-            	bsbView.setLocationRelativeTo(null);
-            	bsbView.setVisible(true);
-            }
-        });
+    	try {
+    		SwingUtilities.invokeLater(new Runnable() {
+	            public void run() {
+	            	BSBView bsbView = new BSBView();
+	            	bsbView.setLocationRelativeTo(null);
+	            	bsbView.setVisible(true);
+	            }
+	        });
+    	} catch (Exception e) {}
     }
 }

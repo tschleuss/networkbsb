@@ -5,12 +5,28 @@ import java.util.List;
 import org.furb.bsb.model.Matrix;
 import org.furb.bsb.utils.MatrixException;
 
+/**
+ * Controller de trainamento utilizado
+ * para o treinamento da rede sobre
+ * os padroes aplicados a ela.
+ * @author Thyago Schleuss
+ * @author Luiz Diego Aquino
+ * @author Luiz Roberto Leicht
+ */
 public class TreinBSB {
 
 	public TreinBSB() {
 		super();
 	}
 	
+	/**
+	 * Realiza operacao de treinamento sobre os padroes
+	 * definidos.
+	 * @param knowledgeList
+	 * @param learnTaxe
+	 * @param stopCriter
+	 * @return
+	 */
 	public Matrix treinBSB(List<Matrix> knowledgeList, double learnTaxe, double stopCriter)
 	{
 		Matrix wObj = null;
@@ -55,7 +71,6 @@ public class TreinBSB {
 						
 						//Se atingiu o criterio de parada
 						if( wDelta.abs().max() < stopCriter ) {
-							System.out.println("stopcriter");
 							finish = !finish;
 							break trein;
 						}	
